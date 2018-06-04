@@ -53,7 +53,7 @@ body{
   height: 100%;
   width:100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,0.6);
 }
 
 .modal-content{
@@ -66,7 +66,7 @@ body{
   border-radius: 0.5em;
   box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
   animation-name: modalopen;
-  animation-duration: 1s;
+  animation-duration: .5s;
 }
 
 @keyframes modalopen{
@@ -144,4 +144,10 @@ body{
 
 .card-profile-img:hover{
   transform: rotate(10deg);
+}
+
+.user-count{
+  grid-column: 2/3;
+  color: grey;
+  padding: 0.3em;
 }

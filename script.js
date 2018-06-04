@@ -1,15 +1,16 @@
 
 const wrapper = document.querySelector('.wrapper');
 const modal = document.querySelector('.modal');
+let numberOfUsers = 12;
 
 function fetchData(url) {
     return fetch(url)
     .then(checkStatus)
     .then(res => res.json())
-    .catch(error => console.log('Looks like there was an error!', error));
+    .catch(error => console.log("404's sake! That didn't seem to work :/", error));
 }
 
-fetchData('https://randomuser.me/api/?results=12')
+fetchData(`https://randomuser.me/api/?results=${numberOfUsers}`)
 .then(data => fillData(data.results));
 
 function checkStatus(response){
@@ -50,7 +51,12 @@ function fillData(resultList){
        ${result.location.state}, ${result.location.postcode}</p>
       <p class="modal-cell">${result.phone}</p>
       <p class="modal-birth">Birthday: ${result.dob.split(' ')[0]}</p>
+
     </div>
+
+      <span class="user-count">User ${count+1} of <span class=matched-users>
+      </span></span>
+
   </div>`
   count += 1;
   }); //end of forEach loop
@@ -86,20 +92,34 @@ function arrowEvents(){
     rightArrow.addEventListener('click', (e) =>{
       let currentModal = e.currentTarget.parentElement.id.split('-')[1];
       e.currentTarget.parentElement.style.display='none';
-      if(currentModal==11){currentModal = -1};
-      document.querySelector(`#modal-${Number(currentModal) + 1}`).style.display='grid';
+      if(currentModal==(numberOfUsers-1)){currentModal = -1};
+      document.querySelector(`#modal-${Number(currentModal) + 1}`)
+      .style.display='grid';
     })
   );
   document.querySelectorAll('.left-arrow').forEach(leftArrow =>
     leftArrow.addEventListener('click', (e) =>{
       let currentModal = e.currentTarget.parentElement.id.split('-')[1];
       e.currentTarget.parentElement.style.display='none';
-      if(currentModal==0){currentModal = 12};
-      document.querySelector(`#modal-${Number(currentModal) - 1}`).style.display='grid';
+      if(currentModal==0){currentModal = numberOfUsers};
+      document.querySelector(`#modal-${Number(currentModal) - 1}`)
+      .style.display='grid';
     })
   );
 }
 
 document.querySelector('#search').addEventListener('keyup', ()=>{
-
+  let input = document.querySelector('#search').value.trim().toLowerCase();
+  const cardNameNodeList = document.querySelectorAll('.card-name');
+  const cardNameArray = Array.from(cardNameNodeList);
+  let matched = cardNameArray.filter(name=>name.innerHTML.includes(input));
+  document.querySelectorAll('.card-contents')
+  .forEach(card => card.style.display='none');
+  matched.forEach(h2=> h2.parentElement.parentElement.style.display='grid');
+  numberOfUsers = matched.length
 });
+
+
+function countItems(){
+
+}
