@@ -1,0 +1,147 @@
+body{
+  background-color: #F2F2F2;
+}
+
+.title{
+  padding-left: 3em;
+  font-family: sans-serif;
+  color: grey;
+  display: inline-block;
+}
+
+.modal-profile-img,
+.card-profile-img{
+  border-radius: 50%;
+}
+
+.modal-name,
+.card-name{
+  text-transform: capitalize;
+}
+
+.modal-profile-img{
+  width: 50%;
+  height: auto;
+}
+
+.wrapper{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2em;
+  padding: 3em;
+  padding-top: 0;
+}
+
+.card-contents{
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  grid-auto-rows: 8em;
+  border: grey 2px solid;
+  border-radius: 0.5em;
+  padding: 1em;
+  background-color: #ededed;
+  color: grey;
+  cursor: pointer;
+}
+
+.modal{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width:100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content{
+  display: none;
+  grid-template-columns: 1fr 6fr 1fr;
+  background-color:#f4f4f4;
+  margin: 5% auto;
+  width: 32%;
+  text-align: center;
+  border-radius: 0.5em;
+  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
+  animation-name: modalopen;
+  animation-duration: 1s;
+}
+
+@keyframes modalopen{
+  from{ opacity: 0}
+  to {opacity: 1}
+}
+
+.modal-body{
+
+  padding-bottom: 1em;
+  display: inline-block;
+  grid-column: 2/3;
+  grid-row: 2;
+  color: grey;
+}
+
+.modal-name, .card-name{
+  color: black;
+}
+
+
+
+.closeBtn{
+  color: grey;
+  font-size:3em;
+  padding: 0.25em;
+  padding-bottom: 0;
+  grid-column: span 3;
+  justify-self: end;
+  align-items: start;
+  grid-row: 1;
+}
+
+.closeBtn:hover, .closeBtn:focus{
+  color:#000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.right-arrow, .left-arrow{
+    color: grey;
+    grid-row: 2;
+    font-size:3.5em;
+    align-self: center;
+}
+
+.left-arrow{
+  grid-column: 1/2;
+}
+
+.right-arrow{
+  grid-column: 3/4;
+}
+
+.right-arrow:hover{
+  color:#000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.left-arrow:hover{
+  color:#000;
+  text-decoration: none;
+  cursor:pointer;
+}
+
+#search{
+  float: right;
+  padding: 0.5em;
+  margin-right: 5em;
+  margin-top: 1.5em;
+  width: 15em;
+  border-radius: 0.4em;
+}
+
+.card-profile-img:hover{
+  transform: rotate(10deg);
+}
