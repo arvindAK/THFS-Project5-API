@@ -27,7 +27,7 @@ function fillData(resultList){
   let count = 0;
   resultList.forEach(result=>{
   images +=  `
-  <div class="card-contents" id="card-${count}">
+  <div class="card-content">
     <img class = "card-profile-img" src=${result.picture.large} alt=''>
     <div class="card-body">
       <h3 class="card-name">${result.name.first} ${result.name.last}</h3>
@@ -37,7 +37,7 @@ function fillData(resultList){
   </div>`
 
   modals += `
-  <div class="modal-content" id="modal-${count}">
+  <div class="modal-content modal-${count}">
     <span class="closeBtn">&times;</span>
     <i class="fas fa-caret-left left-arrow"></i>
     <i class="fas fa-caret-right right-arrow"></i>
@@ -51,24 +51,21 @@ function fillData(resultList){
        ${result.location.state}, ${result.location.postcode}</p>
       <p class="modal-cell">${result.phone}</p>
       <p class="modal-birth">Birthday: ${result.dob.split(' ')[0]}</p>
-
     </div>
-
-      <span class="user-count">User ${count+1} of <span class=matched-users>
-      </span></span>
-
+    <span class="user-count"></span>
   </div>`
-  count += 1;
+  count +=1;
   }); //end of forEach loop
   wrapper.innerHTML = images;
   modal.innerHTML = modals;
+  countItems();
   cardEvents();
   exitModalEvents();
   arrowEvents();
 };
 
 function cardEvents(){
-  const cardContents = document.querySelectorAll(".card-contents");
+  const cardContents = document.querySelectorAll(".card-content");
   cardContents.forEach(card=>
     card.addEventListener('click', (e) => {
       const cardNumber = e.currentTarget.id.split('-')[1];
@@ -113,13 +110,24 @@ document.querySelector('#search').addEventListener('keyup', ()=>{
   const cardNameNodeList = document.querySelectorAll('.card-name');
   const cardNameArray = Array.from(cardNameNodeList);
   let matched = cardNameArray.filter(name=>name.innerHTML.includes(input));
-  document.querySelectorAll('.card-contents')
+  document.querySelectorAll('.card-content')
   .forEach(card => card.style.display='none');
   matched.forEach(h2=> h2.parentElement.parentElement.style.display='grid');
   numberOfUsers = matched.length
+  countItems();
 });
 
 
 function countItems(){
-
-}
+  let cardCount = 0;
+  document.querySelectorAll('.card-content')
+  .forEach((card, index) => {
+    if(card.style.display != 'none'){
+      card.id=`card-${cardCount}`
+      document.querySelector(`.modal-${index}`).id = `modal-${cardCount}`;
+      cardCount +=1;
+    }else{
+      card.id=''
+      document.querySelector(`.modal-${index}`).id = ''};
+  });
+};

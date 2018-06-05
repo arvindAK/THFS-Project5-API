@@ -32,7 +32,7 @@ body{
   padding-top: 0;
 }
 
-.card-contents{
+.card-content{
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   grid-auto-rows: 8em;
@@ -86,8 +86,6 @@ body{
 .modal-name, .card-name{
   color: black;
 }
-
-
 
 .closeBtn{
   color: grey;
