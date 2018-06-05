@@ -1,13 +1,39 @@
 body{
-  background-color: #F2F2F2;
+  background-color: #f6f6f6;
+  font-family: sans-serif
+}
+
+.header{
+  display: flex;
+  padding: .5em 3em .5em 3em;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+
 }
 
 .title{
-  padding-left: 3em;
-  font-family: sans-serif;
   color: grey;
-  display: inline-block;
+  display: inline-flex;
 }
+
+
+#search{
+  float: right;
+  padding: 0.5em;
+  width: 15em;
+  border-radius: 0.4em;
+  background-color: #FFFFFF;
+  border: 1px solid #D6D9DC;
+  font-size: 14px;
+
+}
+
+#search:hover, #search:focus {
+  border-color: #4ba6c3;
+  outline-width: 0;
+}
+
 
 .modal-profile-img,
 .card-profile-img{
@@ -15,7 +41,10 @@ body{
 }
 
 .modal-name,
-.card-name{
+.card-name,
+.card-city,
+.modal-city
+{
   text-transform: capitalize;
 }
 
@@ -24,24 +53,29 @@ body{
   height: auto;
 }
 
-.wrapper{
+.card{
   display:grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 2em;
-  padding: 3em;
-  padding-top: 0;
+  grid-gap: 1.8em;
+  padding: 0em 3em 0em 3em;
+
 }
 
 .card-content{
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   grid-auto-rows: 8em;
-  border: grey 2px solid;
-  border-radius: 0.5em;
+  border: lightgrey 1px solid;
+  border-radius: 0.3em;
   padding: 1em;
-  background-color: #ededed;
+  background-color: white;
   color: grey;
   cursor: pointer;
+}
+
+.card-content:hover{
+  border-color: #4ba6c3;
+  background-color: rgb(254,254,255);
 }
 
 .modal{
@@ -59,20 +93,15 @@ body{
 .modal-content{
   display: none;
   grid-template-columns: 1fr 6fr 1fr;
-  background-color:#f4f4f4;
+  background-color: white;
   margin: 5% auto;
   width: 32%;
   text-align: center;
   border-radius: 0.5em;
   box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
-  animation-name: modalopen;
-  animation-duration: .5s;
 }
 
-@keyframes modalopen{
-  from{ opacity: 0}
-  to {opacity: 1}
-}
+
 
 .modal-body{
 
@@ -109,6 +138,7 @@ body{
     grid-row: 2;
     font-size:3.5em;
     align-self: center;
+
 }
 
 .left-arrow{
@@ -131,17 +161,8 @@ body{
   cursor:pointer;
 }
 
-#search{
-  float: right;
-  padding: 0.5em;
-  margin-right: 5em;
-  margin-top: 1.5em;
-  width: 15em;
-  border-radius: 0.4em;
-}
-
 .card-profile-img:hover{
-  transform: rotate(10deg);
+  transform: rotate(5deg);
 }
 
 .user-count{

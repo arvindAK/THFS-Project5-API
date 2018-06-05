@@ -1,26 +1,20 @@
 
-const wrapper = document.querySelector('.wrapper');
+const card = document.querySelector('.card');
 const modal = document.querySelector('.modal');
 let numberOfUsers = 12;
 
+//modified fecth function, converts result to json and handles errors
 function fetchData(url) {
-    return fetch(url)
-    .then(checkStatus)
-    .then(res => res.json())
-    .catch(error => console.log("404's sake! That didn't seem to work :/", error));
+  return fetch(url)
+  .then(res => res.json())
+  .catch(error => console.log("404's sake! That didn't seem to work :/", error));
 }
 
-fetchData(`https://randomuser.me/api/?results=${numberOfUsers}`)
+//call to the randomUser API, result is passed to the fillData function
+fetchData(`https://randomuser.me/api/?nat=gb,us&results=${numberOfUsers}`)
 .then(data => fillData(data.results));
 
-function checkStatus(response){
-  if (response.ok){
-      return Promise.resolve(response);
-  } else {
-      return Promise.reject(new Error(response.statusText));
-  }
-}
-
+//adds html for each card and modal to the DOM
 function fillData(resultList){
   let images = [];
   let modals = [];
@@ -47,16 +41,16 @@ function fillData(resultList){
       <p class="modal-username">${result.login.username}</p>
       <p class="modal-email">${result.email}</p>
       <br><hr><br>
-      <p class="modal-city">${result.location.street}, ${result.location.city},
-       ${result.location.state}, ${result.location.postcode}</p>
       <p class="modal-cell">${result.phone}</p>
+      <p class="modal-city">${result.location.street}, ${result.location.city},
+        ${result.location.postcode}</p>
       <p class="modal-birth">Birthday: ${result.dob.split(' ')[0]}</p>
     </div>
     <span class="user-count"></span>
   </div>`
   count +=1;
   }); //end of forEach loop
-  wrapper.innerHTML = images;
+  card.innerHTML = images;
   modal.innerHTML = modals;
   countItems();
   cardEvents();
@@ -64,9 +58,9 @@ function fillData(resultList){
   arrowEvents();
 };
 
+//for each card add an event listener that displays the corresponding modal
 function cardEvents(){
-  const cardContents = document.querySelectorAll(".card-content");
-  cardContents.forEach(card=>
+  document.querySelectorAll(".card-content").forEach(card =>
     card.addEventListener('click', (e) => {
       const cardNumber = e.currentTarget.id.split('-')[1];
       modal.style.display = 'block';
@@ -75,6 +69,7 @@ function cardEvents(){
   );
 };
 
+//for each close button add event listener to hide the current modal
 function exitModalEvents(){
   document.querySelectorAll('.closeBtn').forEach(closeButton =>
     closeButton.addEventListener('click', (e) =>{
@@ -84,6 +79,7 @@ function exitModalEvents(){
   );
 }
 
+//for each arrow button add event listener to hide the current modal and display the next
 function arrowEvents(){
   document.querySelectorAll('.right-arrow').forEach(rightArrow =>
     rightArrow.addEventListener('click', (e) =>{
@@ -105,10 +101,10 @@ function arrowEvents(){
   );
 }
 
+//hide all cards, then show cards that match input
 document.querySelector('#search').addEventListener('keyup', ()=>{
   let input = document.querySelector('#search').value.trim().toLowerCase();
-  const cardNameNodeList = document.querySelectorAll('.card-name');
-  const cardNameArray = Array.from(cardNameNodeList);
+  const cardNameArray = Array.from(document.querySelectorAll('.card-name'));
   let matched = cardNameArray.filter(name=>name.innerHTML.includes(input));
   document.querySelectorAll('.card-content')
   .forEach(card => card.style.display='none');
@@ -117,7 +113,7 @@ document.querySelector('#search').addEventListener('keyup', ()=>{
   countItems();
 });
 
-
+//reassign card and modal id's depending on how many cards are displaying
 function countItems(){
   let cardCount = 0;
   document.querySelectorAll('.card-content')
@@ -130,4 +126,9 @@ function countItems(){
       card.id=''
       document.querySelector(`.modal-${index}`).id = ''};
   });
+  //update the card count span at the bottom of each modal
+  document.querySelectorAll('.user-count').forEach(user =>
+    user.innerHTML =
+    `User ${Number(user.parentElement.id.split('-')[1])+1} of ${numberOfUsers}`
+  );
 };
