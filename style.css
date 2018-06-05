@@ -9,14 +9,12 @@ body{
   flex-flow: row;
   justify-content: space-between;
   align-items: center;
-
 }
 
 .title{
   color: grey;
   display: inline-flex;
 }
-
 
 #search{
   float: right;
@@ -26,14 +24,12 @@ body{
   background-color: #FFFFFF;
   border: 1px solid #D6D9DC;
   font-size: 14px;
-
 }
 
 #search:hover, #search:focus {
   border-color: #4ba6c3;
   outline-width: 0;
 }
-
 
 .modal-profile-img,
 .card-profile-img{
@@ -58,12 +54,12 @@ body{
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1.8em;
   padding: 0em 3em 0em 3em;
-
 }
 
 .card-content{
   display: grid;
   grid-template-columns: 1fr 1.5fr;
+  grid-gap: 1em;
   grid-auto-rows: 8em;
   border: lightgrey 1px solid;
   border-radius: 0.3em;
@@ -101,10 +97,7 @@ body{
   box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
 }
 
-
-
 .modal-body{
-
   padding-bottom: 1em;
   display: inline-block;
   grid-column: 2/3;
@@ -138,7 +131,6 @@ body{
     grid-row: 2;
     font-size:3.5em;
     align-self: center;
-
 }
 
 .left-arrow{
@@ -169,4 +161,20 @@ body{
   grid-column: 2/3;
   color: grey;
   padding: 0.3em;
+}
+
+.lost{
+  color: #B27F7F;
+  display: flex;
+  flex-flow: column;
+
+  text-align: center;
+
+}
+
+.not-found{
+  width: 60vw;
+  height: auto;
+  align-self: center;
+  border-radius: 1%;
 }

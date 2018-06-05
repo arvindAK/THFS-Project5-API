@@ -106,11 +106,19 @@ document.querySelector('#search').addEventListener('keyup', ()=>{
   let input = document.querySelector('#search').value.trim().toLowerCase();
   const cardNameArray = Array.from(document.querySelectorAll('.card-name'));
   let matched = cardNameArray.filter(name=>name.innerHTML.includes(input));
+  let match = true;
   document.querySelectorAll('.card-content')
   .forEach(card => card.style.display='none');
   matched.forEach(h2=> h2.parentElement.parentElement.style.display='grid');
   numberOfUsers = matched.length
   countItems();
+  //trigger notFound function
+  numberOfUsers===0 ? match = false : match = true;
+  if(document.querySelector('.lost')){
+    const element = document.querySelector(".lost");
+    element.parentNode.removeChild(element);
+  };
+  if(!match){notFound(input)};
 });
 
 //reassign card and modal id's depending on how many cards are displaying
@@ -131,4 +139,15 @@ function countItems(){
     user.innerHTML =
     `User ${Number(user.parentElement.id.split('-')[1])+1} of ${numberOfUsers}`
   );
+};
+
+//add not found message
+function notFound(input){
+  const someHTML = `<div class='lost'>
+    <h3 class='missing-title'>Yikes! </h3>
+    <span class='missing-message'>It appears "${ input }"
+    doesn't match with any of our employees.</span><br>
+    <img src="img/notFound.jpg" class="not-found" alt="">
+    </img></div>`
+  document.querySelector('.header').insertAdjacentHTML('afterEnd', someHTML);
 };
