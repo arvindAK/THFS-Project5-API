@@ -1,4 +1,3 @@
-
 const card = document.querySelector('.card');
 const modal = document.querySelector('.modal');
 let numberOfUsers = 12;
@@ -103,14 +102,32 @@ function arrowEvents(){
 
 //hide all cards, then show cards that match input
 document.querySelector('#search').addEventListener('keyup', ()=>{
-  let input = document.querySelector('#search').value.trim().toLowerCase();
+  const input = document.querySelector('#search').value.trim().toLowerCase();
   const cardNameArray = Array.from(document.querySelectorAll('.card-name'));
-  let matched = cardNameArray.filter(name=>name.innerHTML.includes(input));
+  const modalUserNameArray = Array.from(document.querySelectorAll('.modal-username'));
+  const cardEmail = Array.from(document.querySelectorAll('.card-email'));
+
+  //check if card name matches input, return name's card parent
+  const matched = cardNameArray.filter(name=>name.innerHTML.includes(input))
+  .map(name => name.parentElement.parentElement);
+
+  //check if username matches input, return the modals email parent
+  const username = modalUserNameArray.filter(username=>username.innerHTML.includes(input))
+  .map(username=> username.nextElementSibling.innerHTML);
+
+  //check if the card email intersects with the modal email, return card parent
+  const emailCard = cardEmail.filter(value => -1 !== username.indexOf(value.innerHTML))
+  .map(email => email.parentElement.parentElement);
+
+  //remove duplicate card parents
+  const matches = [...new Set([...matched ,...emailCard])];
+
   let match = true;
   document.querySelectorAll('.card-content')
   .forEach(card => card.style.display='none');
-  matched.forEach(h2=> h2.parentElement.parentElement.style.display='grid');
-  numberOfUsers = matched.length
+
+  matches.forEach(h2 => h2.style.display='grid');
+  numberOfUsers = matches.length
   countItems();
   //trigger notFound function
   numberOfUsers===0 ? match = false : match = true;
