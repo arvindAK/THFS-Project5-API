@@ -43,7 +43,7 @@ function fillData(resultList){
       <p class="modal-cell">${result.phone}</p>
       <p class="modal-city">${result.location.street}, ${result.location.city},
         ${result.location.postcode}</p>
-      <p class="modal-birth">Birthday: ${result.dob.split(' ')[0]}</p>
+      <p class="modal-birth">Age: ${result.dob.age}</p>
     </div>
     <span class="user-count"></span>
   </div>`
